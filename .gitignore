@@ -1,4 +1,7 @@
 barunik_pattern/
+logging/
+data.csv
+merged_data.RData
 
 # Prerequisites
 **/*.d

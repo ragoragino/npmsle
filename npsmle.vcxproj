@@ -22,9 +22,13 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Garbage.h" />
     <ClInclude Include="src\Header.h" />
     <ClInclude Include="src\Joint.h" />
+    <ClInclude Include="src\Joint2D.h" />
+    <ClInclude Include="src\Latent.h" />
     <ClInclude Include="src\Other.h" />
+    <ClInclude Include="src\Replication.h" />
     <ClInclude Include="src\Sentiment.h" />
     <ClInclude Include="src\Single.h" />
   </ItemGroup>
@@ -32,7 +36,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{9FD3CB4E-A1E0-4BA3-9D17-A8D34573697F}</ProjectGuid>
     <RootNamespace>npsmle</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,8 +84,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Materials\Programming\Projekty\npsmle\include;D:\Materials\Programming\C++\Libraries\liblbfgs-1.10\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Materials\Programming\C++\Libraries\NLOPT;D:\Materials\Programming\Projekty\npsmle\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Materials\Programming\Projekty\npsmle\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Materials\Programming\Projekty\npsmle\libs32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>D:\Materials\Programming\Projekty\npsmle\include;$(IncludePath)</IncludePath>
@@ -97,6 +101,8 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <Profile>true</Profile>
@@ -111,6 +117,9 @@
       <SDLCheck>true</SDLCheck>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <Profile>true</Profile>

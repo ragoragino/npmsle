@@ -3,15 +3,16 @@
 #include "Other.h"
 
 // Simulate Vasicek process
-template<typename GeneratorType = std::mt19937_64>
+template<typename GeneratorType = std::mt19937_64, typename GeneratorSeed = RandomStart>
 double * simulation_vasicek(double alpha, double beta, double sigma, int N, double x0, double delta, int step)
 {
 	double dt = delta / step;
+
 	double * process = (double*)malloc(N * sizeof(double));
 	process[0] = x0;
 
 	GeneratorType generator;
-	generator.seed(std::random_device()());
+	generator.seed(GeneratorSeed()());
 	std::normal_distribution<double> distribution(0.0, 1.0);
 
 	for (int i = 1; i != N; ++i)
@@ -28,7 +29,7 @@ double * simulation_vasicek(double alpha, double beta, double sigma, int N, doub
 
 
 // Simulate CIR process
-template<typename GeneratorType = std::mt19937_64>
+template<typename GeneratorType = std::mt19937_64, typename GeneratorSeed = RandomStart>
 double * simulation_cir(double alpha, double beta, double sigma, int N, double x0, double delta, int step)
 {
 	double dt = delta / step;
@@ -36,7 +37,7 @@ double * simulation_cir(double alpha, double beta, double sigma, int N, double x
 	process[0] = x0;
 
 	GeneratorType generator;
-	generator.seed(std::random_device()());
+	generator.seed(GeneratorSeed()());
 	std::normal_distribution<double> distribution(0.0, 1.0);
 
 	for (int i = 1; i != N; ++i)
@@ -63,7 +64,7 @@ double analytical_ll_vasicek_optim(const std::vector<double>& x, std::vector<dou
 	int N_obs = object->N_obs;
 	double delta = object->delta;
 	double * process = object->process;
-
+	
 	double denominator = sigma * exp(-beta * delta) * sqrt(0.5 * (exp(2 * beta * delta) - 1) / beta);
 	double input = (process[0] - object->x0 * exp(-beta * delta) - alpha * (1 - exp(-beta * delta))) / denominator;
 	double normal_pdf = exp(-0.5 * input * input) / sqrt(M_PI * 2.0);
@@ -83,12 +84,13 @@ double analytical_ll_vasicek_optim(const std::vector<double>& x, std::vector<dou
 }
 
 // Simulated LL for Vasicek process for optimization
+template<typename GeneratorType = std::mt19937_64, typename GeneratorSeed = RandomStart>
 double simulated_ll_vasicek_optim(const std::vector<double>& x, std::vector<double>& grad, void* data)
 {
 	double alpha = x[0];
 	double beta = x[1];
 	double sigma = x[2];
-	WrapperSimulated<> * obj = static_cast<WrapperSimulated<>*>(data);
+	WrapperSimulated<GeneratorType, GeneratorSeed> * obj = static_cast<WrapperSimulated<GeneratorType, GeneratorSeed>*>(data);
 	int L = obj->N_obs;
 	int N = obj->N_sim;
 	int M = obj->step;
@@ -118,11 +120,9 @@ double simulated_ll_vasicek_optim(const std::vector<double>& x, std::vector<doub
 			simulated_y[j] = y[i - 1];
 			for (int k = 0; k != M; ++k)
 			{
-				simulated_y[j] += beta * (alpha - simulated_y[j]) * dt + sigma_sqrt_dt * wiener[random_index++]; // Process structure
+				simulated_y[j] += beta * (alpha - simulated_y[j]) * dt + sigma_sqrt_dt * wiener[j * M + k]; // Process structure
 			}
 		}
-
-		random_index = 0;
 
 		h = h_frac * st_dev(simulated_y, N); // Optimal kernel bandwidth computation
 
@@ -134,15 +134,24 @@ double simulated_ll_vasicek_optim(const std::vector<double>& x, std::vector<doub
 		ll += log(kernel_sum / N);
 
 		kernel_sum = 0.0;
+
+#ifdef INFINITY_CHECK
+		// Speed up in cases of infinity
+		if (ll == -INFINITY)
+		{
+			return -ll;
+		}
+#endif
 	}
 
 	return -ll;
 }
 
 // Simulated LL for CIR process for optimization
+template<typename GeneratorType = std::mt19937_64, typename GeneratorSeed = RandomStart>
 double simulated_ll_cir_optim(const std::vector<double>& x, std::vector<double>& grad, void* data)
 {
-	WrapperSimulated<> * obj = static_cast<WrapperSimulated<>*>(data);
+	WrapperSimulated<GeneratorType, GeneratorSeed> * obj = static_cast<WrapperSimulated<GeneratorType, GeneratorSeed>*>(data);
 	int L = obj->N_obs;
 	int N = obj->N_sim;
 	int M = obj->step;
