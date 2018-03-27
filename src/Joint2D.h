@@ -132,9 +132,9 @@ double simulated_ll_joint2D(const std::vector<double>& x, std::vector<double>& g
 	double mu_p = x[1];
 	double gamma_v = x[2];
 	double mu_v = x[3];
-	double beta_v = 0.0; // x[4];
-	double sigma_v = x[4];
-	double rho_pv = x[5];
+	double beta_v = x[4];
+	double sigma_v = x[5];
+	double rho_pv = x[6];
 
 	// Unwraping data
 	WrapperSimulatedJoint2D<GeneratorType, GeneratorSeed> *wrapper = static_cast<WrapperSimulatedJoint2D<GeneratorType, GeneratorSeed>*>(data);
@@ -186,7 +186,7 @@ double simulated_ll_joint2D(const std::vector<double>& x, std::vector<double>& g
 				sqrt_vol = sqrt(abs(simulated_volatility[j]));
 				simulated_price[j] += mp * delta + W_p[j * M_sim + k] * sqrt_vol * sqrt_delta;
 
-				mv = gamma_v * (mu_v - simulated_volatility[j]); // + beta_v * abs(sentiment[(i - 1) * M_sim + k]) 
+				mv = gamma_v * (mu_v + beta_v * abs(sentiment[(i - 1) * M_sim + k]) - simulated_volatility[j]);
 				simulated_volatility[j] += mv * delta + W_v[j * M_sim + k] * sqrt_vol * sigma_v * sqrt_delta;
 			}
 		}
