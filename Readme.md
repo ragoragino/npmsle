@@ -3,9 +3,8 @@ Kristensen, Dennis, and Yongseok Shin. "Estimation of dynamic models with nonpar
 
 ## Getting Started
 
-The library provides functionality for estimating Vasicek process with an analytical method and NPMSLE on simulated or empirical data. 
-It also provides functionality for estimating 3-D process (with Vasicek process as a base incorporated to the slightly adjusted Heston stochastic volatility model), 
-also with a simulated or empirical counterparts. The final option is provided as a replication of the original jump-diffusion process presented in the paper, section 4.1.2.
+The library provides functionality for estimating Vasicek process with an analytical method and the NPMSLE on simulated or empirical data. 
+It also provides functionality for estimating a 3-D process, with Vasicek process as a base incorporated to the slightly adjusted Heston stochastic volatility model, also with simulated and empirical counterparts. The final option is provided as a replication of the original jump-diffusion process presented in the paper, section 4.1.2.
 
 ### Prerequisites
 
