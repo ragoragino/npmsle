@@ -1,8 +1,8 @@
 all: main.exe
 
-LIB=-L/home/cechf/npsmle/libs -lnlopt
-INC=-I/home/cechf/npsmle/src/experiment/include
-LDFLAGS="-Wl,-rpath,/home/cechf/npsmle/libs/"
+LIB=-L -lnlopt
+INC=-I
+LDFLAGS="-Wl,-rpath,"
 
 main.exe: main.o
 	g++ -o main.exe main.o -fopenmp $(LIB) $(LDFLAGS) -pg
