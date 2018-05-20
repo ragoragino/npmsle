@@ -14,7 +14,7 @@ NLopt Library (https://github.com/stevengj/nlopt) version 2.4.2
 
 ### Installing
 
-Makefile is provided for default building.
+Makefile is provided for default building, with a necessity of changing the include (with nlopt headers) and library (with nlopt libraries) directories.
 
 ## Running the tests
 
