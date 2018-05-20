@@ -28,17 +28,17 @@ namespace NPSMLE
 #endif
 
 #ifndef LINUX
-		static const char *data_loc = R"(D:/Materials/Programming/Projekty/npsmle/data.csv)";
+		static const char *data_loc = R"()";
 #endif
 
 		// Name of the logger for sentiment process
-		static const char *log_loc_1 = R"(/home/cechf/npsmle/logging/first_step_sentiment.txt)";
-		static const char *log_loc_2 = R"(/home/cechf/npsmle/logging/second_step_sentiment.txt)";
-		static const char *log_loc_std = R"(/home/cechf/npsmle/logging/std_sentiment.txt)"; // computed only for the second step
+		static const char *log_loc_1 = R"()";
+		static const char *log_loc_2 = R"()";
+		static const char *log_loc_std = R"()"; // computed only for the second step
 
 		// Uncomment the write mechanism - FileWriter for writing to files, ConsoleWriter for writing to console
-		typedef NPSMLE::FileWriter LoggerType;
-		// typedef NPSMLE::ConsoleWriter LoggerType;
+		// typedef NPSMLE::FileWriter LoggerType;
+		typedef NPSMLE::ConsoleWriter LoggerType;
 
 		// Parameter initialization
 		/* Begin and end represent (begin, end] boundaries for std::uniform_distribution<double>
@@ -86,8 +86,8 @@ namespace NPSMLE
 		static constexpr int n_params_rep = 5;
 
 		// Name of logger for joint process
-		static const char *log_loc_3 = R"(/home/cechf/npsmle/logging/first_step_joint.txt)";
-		static const char *log_loc_4 = R"(/home/cechf/npsmle/logging/second_step_joint.txt)";
-		static const char *log_loc_std_2 = R"(/home/cechf/npsmle/logging/std_joint.txt)"; // computed only for the second step
+		static const char *log_loc_3 = R"()";
+		static const char *log_loc_4 = R"()";
+		static const char *log_loc_std_2 = R"()"; // computed only for the second step
 	}
 }
