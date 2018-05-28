@@ -24,7 +24,7 @@ namespace NPSMLE
 
 		// Location of data
 #ifdef LINUX
-		static const char *data_loc = R"(/home/cechf/npsmle/data.csv)";
+		static const char *data_loc = R"()";
 #endif
 
 #ifndef LINUX
@@ -57,19 +57,17 @@ namespace NPSMLE
 
 		// Sentiment process
 		static constexpr double alpha_s = 0.2;
-		static constexpr double beta_s = 1.0; // 38.5;
-		static constexpr double sigma_s = 0.1; // 0.1;
+		static constexpr double beta_s = 1.0; 
+		static constexpr double sigma_s = 0.1; 
 		static constexpr double s_0 = alpha_s;
 
 		// Joint process
-		// 2.0, ..., 0.1, 2.0, 0.2, 0.1, 0.15, -0.5
-		// 0.1, ..., 0.1, 1.0, 0.01, 0.1, 0.05, -0.5
 		static constexpr int n_params = 7; // number of parameters in the price-volatility process
-		static constexpr double gamma_p = 0.25; // 0.2;
-		static constexpr double gamma_v = 2.0; // 0.2;
-		static constexpr double mu_v = 0.1; // 0.01;
-		static constexpr double beta_v = 0.1; // 0.03;
-		static constexpr double sigma_v = 0.15; //0.05;
+		static constexpr double gamma_p = 0.25;
+		static constexpr double gamma_v = 2.0; 
+		static constexpr double mu_v = 0.1; 
+		static constexpr double beta_v = 0.1; 
+		static constexpr double sigma_v = 0.15;
 		static constexpr double rho_pv = -0.5;
 		static constexpr double mu_p = mu_v + beta_v * alpha_s; // in order to be stationary -> otherwise blows up
 		static constexpr double p_0 = mu_p;
